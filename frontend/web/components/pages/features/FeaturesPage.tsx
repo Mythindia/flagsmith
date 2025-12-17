@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
+import classNames from 'classnames'
 import CreateFlagModal from 'components/modals/CreateFlag'
 import Constants from 'common/constants'
 import Utils from 'common/utils/utils'
@@ -75,16 +76,6 @@ const FeaturesPage: FC = () => {
     }
   }, [projectId])
 
-  // Backward compatibility: Populate FeatureListStore for legacy components (CreateFlag modal)
-  // This ensures store.model is initialized for the modal's save flow in versioned environments
-  // TODO: Remove this when CreateFlag is migrated to RTK Query
-  useEffect(() => {
-    if (projectId && environmentId) {
-      // getFeatures(projectId, environmentId, force, search, sort, page, filter, pageSize)
-      AppActions.getFeatures(projectId, environmentId, true, null, null, 1, {})
-    }
-  }, [projectId, environmentId])
-
   // Force re-fetch when legacy Flux store updates features
   // TODO: Remove when all feature mutations use RTK Query
   useEffect(() => {
@@ -105,8 +96,8 @@ const FeaturesPage: FC = () => {
   const minimumChangeRequestApprovals =
     currentEnvironment?.minimum_change_request_approvals
 
-  const [removeFeature] = useRemoveFeatureWithToast()
-  const [toggleFeature] = useToggleFeatureWithToast()
+  const [removeFeature, { isLoading: isRemoving }] = useRemoveFeatureWithToast()
+  const [toggleFeature, { isLoading: isToggling }] = useToggleFeatureWithToast()
 
   const removeFlag = useCallback(
     async (projectFlag: ProjectFlag) => {
@@ -116,15 +107,9 @@ const FeaturesPage: FC = () => {
   )
 
   const toggleFlag = useCallback(
-    async (
-      flag: ProjectFlag,
-      environmentFlag: FeatureState | undefined,
-      onError?: () => void,
-    ) => {
+    async (flag: ProjectFlag, environmentFlag: FeatureState | undefined) => {
       if (!currentEnvironment) return
-      await toggleFeature(flag, environmentFlag, currentEnvironment, {
-        onError,
-      })
+      await toggleFeature(flag, environmentFlag, currentEnvironment)
     },
     [toggleFeature, currentEnvironment],
   )
@@ -139,6 +124,8 @@ const FeaturesPage: FC = () => {
     [data?.pagination],
   )
   const totalFeatures = useMemo(() => data?.count ?? 0, [data?.count])
+
+  const isSaving = isToggling || isRemoving
 
   usePageTracking({
     context: {
@@ -331,7 +318,13 @@ const FeaturesPage: FC = () => {
               projectId={projectId}
             />
 
-            <FormGroup className='mb-4'>{renderFeaturesList()}</FormGroup>
+            <FormGroup
+              className={classNames('mb-4', {
+                'opacity-50': isSaving,
+              })}
+            >
+              {renderFeaturesList()}
+            </FormGroup>
 
             <FeaturesSDKIntegration
               projectId={projectId}

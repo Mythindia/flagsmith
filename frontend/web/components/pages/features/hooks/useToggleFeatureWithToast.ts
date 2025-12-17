@@ -31,12 +31,13 @@ export const useToggleFeatureWithToast = () => {
         console.warn('Cannot toggle feature: environmentFlag is undefined')
         return
       }
+      const environmentId = `${environment.id}`
+
       try {
         if (environment.use_v2_feature_versioning) {
           // Versioned environment: use versioning API
           await createAndSetFeatureVersion({
-            environmentApiKey: environment.api_key,
-            environmentId: environment.id,
+            environmentId,
             featureId: flag.id,
             featureStates: [
               {
@@ -53,7 +54,7 @@ export const useToggleFeatureWithToast = () => {
               enabled: !environmentFlag.enabled,
             },
             environmentFlagId: environmentFlag.id,
-            environmentId: environment.api_key,
+            environmentId,
           }).unwrap()
         }
 
