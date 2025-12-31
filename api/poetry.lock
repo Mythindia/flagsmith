@@ -1540,20 +1540,15 @@ six = "*"
 
 [[package]]
 name = "django-softdelete"
-version = "0.10.5"
+version = "0.11.5"
 description = "Soft delete support for Django ORM, with undelete."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "django-softdelete-0.10.5.tar.gz", hash = "sha256:7b1a31c889ed482b42c932a6d69f3653351e5699a52ebed2cfb3427a0fb7150f"},
-    {file = "django_softdelete-0.10.5-py3-none-any.whl", hash = "sha256:7ddb0af2118619e7813fea4335e486d49b63ca7b0fd38d0b5ab3723cda40c577"},
+    {file = "django_softdelete-0.11.5-py3-none-any.whl", hash = "sha256:72d086ea4572b85a7fe027dcf58625e091202c924c58aca2e3d4f7e6dde4c72f"},
+    {file = "django_softdelete-0.11.5.tar.gz", hash = "sha256:d2e1c11cad2e664f2ec0644b9e23c7e8da4e59851fab312be69b5cf6ce12c7ab"},
 ]
-
-[package.dependencies]
-setuptools = "*"
-six = "*"
-wheel = "*"
 
 [[package]]
 name = "django-storages"
@@ -5229,21 +5224,6 @@ markupsafe = ">=2.1.1"
 watchdog = ["watchdog (>=2.3)"]
 
 [[package]]
-name = "wheel"
-version = "0.41.1"
-description = "A built-package format for Python"
-optional = false
-python-versions = ">=3.7"
-groups = ["main"]
-files = [
-    {file = "wheel-0.41.1-py3-none-any.whl", hash = "sha256:473219bd4cbedc62cea0cb309089b593e47c15c4a2531015f94e4e3b9a0f6981"},
-    {file = "wheel-0.41.1.tar.gz", hash = "sha256:12b911f083e876e10c595779709f8a88a59f45aacc646492a67fe9ef796c1b47"},
-]
-
-[package.extras]
-test = ["pytest (>=6.0.0)", "setuptools (>=65)"]
-
-[[package]]
 name = "whitenoise"
 version = "6.0.0"
 description = "Radically simplified static file serving for WSGI applications"
@@ -5418,4 +5398,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">3.11,<3.13"
-content-hash = "5898fabfeedae2155b4e414b4f2c6d0e50eeb25a42713929235b4d08cfbaabe5"
+content-hash = "ab312854784e09dff68aec2dc896f7cad802df9c95e0f7b9ac9eac3ea4b891ec"
