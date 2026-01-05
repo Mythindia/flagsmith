@@ -20,6 +20,7 @@ import FeatureFilters, {
   getURLParamsFromFilters,
 } from 'components/feature-page/FeatureFilters'
 import { FeatureMetricsSection, FeaturesEmptyState } from './features'
+import ImportSuccessBanner from 'components/import-export/ImportSuccessBanner'
 
 const FeaturesPage = class extends Component {
   static displayName = 'FeaturesPage'
@@ -48,15 +49,20 @@ const FeaturesPage = class extends Component {
   componentDidUpdate(prevProps) {
     const {
       match: { params },
+      location,
     } = this.props
     const {
       match: { params: oldParams },
+      location: oldLocation,
     } = prevProps
     if (
       params.environmentId !== oldParams.environmentId ||
       params.projectId !== oldParams.projectId
     ) {
       this.setState({ loadedOnce: false }, () => this.filter())
+    } else if (location.search !== oldLocation.search) {
+      const newFilters = parseFiltersFromUrlParams(Utils.fromParam())
+      this.setState({ filters: newFilters }, () => this.filter())
     }
   }
 
@@ -226,6 +232,10 @@ const FeaturesPage = class extends Component {
                             'features',
                             featureLimitAlert.percentage,
                           )}
+                        <ImportSuccessBanner
+                          projectId={projectId}
+                          environmentId={environmentId}
+                        />
                         <FeatureMetricsSection
                           environmentApiKey={environment?.api_key}
                           forceRefetch={this.state.forceMetricsRefetch}
