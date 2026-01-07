@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.207.0](https://github.com/Flagsmith/flagsmith/compare/v2.206.0...v2.207.0) (2026-01-07)
+
+
+### Features
+
+* **api-docs:** Generate OpenAPI 3.1 docs with drf-spectacular ([#6451](https://github.com/Flagsmith/flagsmith/issues/6451)) ([42e4fdc](https://github.com/Flagsmith/flagsmith/commit/42e4fdc890ca2183133f311088755361dc5a7b83))
+* improve segment feature association ([#6478](https://github.com/Flagsmith/flagsmith/issues/6478)) ([58015b1](https://github.com/Flagsmith/flagsmith/commit/58015b117324da4cc7b41b54519e2b6fe1c0176a))
+
 ## [2.206.0](https://github.com/Flagsmith/flagsmith/compare/v2.205.8...v2.206.0) (2026-01-07)
 
 
